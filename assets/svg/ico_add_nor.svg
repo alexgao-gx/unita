@@ -1,0 +1,16 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ico_add_nor" clip-path="url(#clip0_570_4969)">
+<g id="Group 1056">
+<circle id="Ellipse 161" cx="8" cy="8" r="7.75" stroke="#C5C5C5" stroke-width="0.5"/>
+<g id="Group 921">
+<path id="Line 87" d="M8 4L8 12" stroke="#C5C5C5" stroke-linecap="round"/>
+<path id="Line 88" d="M4 8L12 8" stroke="#C5C5C5" stroke-linecap="round"/>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_570_4969">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
