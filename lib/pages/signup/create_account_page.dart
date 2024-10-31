@@ -32,29 +32,46 @@ class CreateAccountPage<T extends CreateAccountPageController>
             children: <Widget>[
               LargeTitle(text: 'Create You\n Account'.tr),
               SizedBox(height: 90),
+
+              // Prefer Name Input
               BasicInputWidget(
-                  controller: controller.accountController,
-                  hintText: 'Prefer name'.tr,
-                  isShowMaxCount: true),
+                controller: controller.accountController,
+                hintText: 'Prefer name'.tr,
+                isShowMaxCount: true,
+              ),
+
+              // Password Inputs
+              PasswordInputWidget(
+                controller: controller.pwdController,
+                hintText: 'Enter password...'.tr,
+                isShowMaxCount: true,
+              ),
+              PasswordInputWidget(
+                controller: controller.confirmPwdController,
+                hintText: 'Enter password again...'.tr,
+                isShowValidateText: true,
+              ),
+
+              // Add spacing
+              SizedBox(height: 20.h),
+
+              // Email Input (Moved Below Password)
               BasicInputWidget(
-                  controller: controller.emailController,
-                  hintText: 'Enter your email...'.tr),
+                controller: controller.emailController,
+                hintText: 'Enter your email...'.tr,
+              ),
+
+              // Captcha Input (Moved Below Password)
               SizedBox(height: 20.h),
               CaptchaInputWidget<T>(),
-              SizedBox(height: 20.h),
-              PasswordInputWidget(
-                  controller: controller.pwdController,
-                  hintText: 'Enter password...'.tr,
-                  isShowMaxCount: true),
-              PasswordInputWidget(
-                  controller: controller.confirmPwdController,
-                  hintText: 'Enter password again...'.tr,
-                  isShowValidateText: true),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: LoadingButton<T>(text: 'Next'.tr, onPressed: () {}),
+      bottomNavigationBar: LoadingButton<T>(
+        text: 'Next'.tr,
+        onPressed: () {},
+      ),
     );
   }
 }

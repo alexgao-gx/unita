@@ -8,15 +8,9 @@ import 'package:unitaapp/pages/home/gut_health/gut_flow_done_page.dart';
 import 'package:unitaapp/pages/home/gut_health/gut_health_start_page.dart';
 import 'package:unitaapp/pages/log/log_page.dart';
 import 'package:unitaapp/pages/login/login_page.dart';
-import 'package:unitaapp/pages/me/report/gut_health_report_page.dart';
-import 'package:unitaapp/pages/me/report/reports_page.dart';
-import 'package:unitaapp/pages/me/setting/add_address_page.dart';
-import 'package:unitaapp/pages/me/setting/add_payment_page.dart';
-import 'package:unitaapp/pages/me/setting/address_page.dart';
 import 'package:unitaapp/pages/me/setting/billing_subscription_page.dart';
 import 'package:unitaapp/pages/me/setting/contact_us_page.dart';
 import 'package:unitaapp/pages/me/setting/notification_messages_page.dart';
-import 'package:unitaapp/pages/me/setting/payment_page.dart';
 import 'package:unitaapp/pages/me/setting/setting_page.dart';
 import 'package:unitaapp/pages/signup/create_account_page.dart';
 import 'package:unitaapp/pages/signup/forget_pwd_captcha_page.dart';
@@ -33,10 +27,6 @@ import '../../pages/home/gut_health/gut_health_assessment_page.dart';
 import '../../pages/me/me_profile_page.dart';
 import '../../pages/me/setting/notification_page.dart';
 import '../../pages/me/shopping_cart_page.dart';
-import '../../pages/plan/body_page.dart';
-import '../../pages/plan/diet_page.dart';
-import '../../pages/plan/herb/herb_page.dart';
-import '../../pages/plan/mind_page.dart';
 import '../../pages/signup/signup_flow_allergies_page.dart';
 import '../../pages/signup/signup_flow_goals_page.dart';
 import '../../pages/signup/signup_flow_disorders_page.dart';
@@ -46,6 +36,18 @@ import '../../pages/signup/signup_flow_done_page.dart';
 import '../../pages/signup/signup_flow_tall_page.dart';
 import '../../pages/signup/signup_flow_weight_page.dart';
 import 'names.dart';
+
+// Commented out missing imports
+// import 'package:unitaapp/pages/me/setting/add_address_page.dart';
+// import 'package:unitaapp/pages/me/setting/add_payment_page.dart';
+// import 'package:unitaapp/pages/me/setting/address_page.dart';
+// import 'package:unitaapp/pages/me/setting/payment_page.dart';
+// import '../../pages/plan/body_page.dart';
+// import '../../pages/plan/diet_page.dart';
+// import '../../pages/plan/herb/herb_page.dart';
+// import '../../pages/plan/mind_page.dart';
+// import '../../pages/reports/reports_page.dart';
+// import '../../pages/reports/gut_health_report_page.dart';
 
 class RoutePages {
   static final pages = [
@@ -164,26 +166,26 @@ class RoutePages {
       page: () => BillingSubscriptionPage(),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: RouteNames.payment,
-      page: () => PaymentPage(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: RouteNames.addPayment,
-      page: () => AddPaymentPage(payment: Get.arguments),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: RouteNames.address,
-      page: () => AddressPage(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: RouteNames.addAddress,
-      page: () => AddAddressPage(address: Get.arguments),
-      transition: Transition.noTransition,
-    ),
+    // GetPage(
+    //   name: RouteNames.payment,
+    //   page: () => PaymentPage(),
+    //   transition: Transition.noTransition,
+    // ),
+    // GetPage(
+    //   name: RouteNames.addPayment,
+    //   page: () => AddPaymentPage(payment: Get.arguments),
+    //   transition: Transition.noTransition,
+    // ),
+    // GetPage(
+    //   name: RouteNames.address,
+    //   page: () => AddressPage(),
+    //   transition: Transition.noTransition,
+    // ),
+    // GetPage(
+    //   name: RouteNames.addAddress,
+    //   page: () => AddAddressPage(address: Get.arguments),
+    //   transition: Transition.noTransition,
+    // ),
     GetPage(
       name: RouteNames.notification,
       page: () => NotificationPage(),
@@ -202,7 +204,7 @@ class RoutePages {
     ),
     GetPage(
       name: RouteNames.log,
-      page: () => LogPage(),
+      page: () => const LogPage(),
       fullscreenDialog: true,
       transition: Transition.noTransition,
     ),
@@ -211,17 +213,17 @@ class RoutePages {
       page: () => ScanMealPage(file: Get.arguments),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: RouteNames.mind,
-      page: () => MindPage(),
-    ),
-    GetPage(
-      name: RouteNames.body,
-      page: () => BodyPage(),
-    ),
+    // GetPage(
+    //   name: RouteNames.mind,
+    //   page: () => MindPage(),
+    // ),
+    // GetPage(
+    //   name: RouteNames.body,
+    //   page: () => BodyPage(),
+    // ),
     GetPage(
       name: RouteNames.bodyTypeStart,
-      page: () => BodyTypeStartPage(),
+      page: () => const BodyTypeStartPage(),
     ),
     GetPage(
       name: RouteNames.bodyTypeAssessment,
@@ -235,7 +237,7 @@ class RoutePages {
     ),
     GetPage(
       name: RouteNames.gutHealthStart,
-      page: () => GutHealthStartPage(),
+      page: () => const GutHealthStartPage(),
     ),
     GetPage(
       name: RouteNames.gutHealthAssessment,
@@ -247,34 +249,34 @@ class RoutePages {
       name: RouteNames.gutHealthDone,
       page: () => GutFlowDonePage(),
     ),
-    GetPage(
-      name: RouteNames.diet,
-      page: () => DietPage(),
-    ),
-    GetPage(
-      name: RouteNames.herb,
-      page: () => HerbPage(),
-    ),
+    // GetPage(
+    //   name: RouteNames.diet,
+    //   page: () => DietPage(),
+    // ),
+    // GetPage(
+    //   name: RouteNames.herb,
+    //   page: () => HerbPage(),
+    // ),
     GetPage(
       name: RouteNames.shoppingCart,
-      page: () => ShoppingCartPage(),
+      page: () => const ShoppingCartPage(),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: RouteNames.reports,
-      page: () => ReportsPage(),
-    ),
-    GetPage(
-      name: RouteNames.gutHealthReport,
-      page: () => GutHealthReportPage(),
-    ),
+    // GetPage(
+    //   name: RouteNames.reports,
+    //   page: () => ReportsPage(),
+    // ),
+    // GetPage(
+    //   name: RouteNames.gutHealthReport,
+    //   page: () => GutHealthReportPage(),
+    // ),
     GetPage(
       name: RouteNames.profile,
       page: () => MeProfilePage(),
     ),
     GetPage(
       name: RouteNames.notificationMessages,
-      page: () => NotificationMessagesPage(),
+      page: () => const NotificationMessagesPage(),
     ),
   ];
 }

@@ -18,13 +18,17 @@ import '../models/home_tips_model.dart';
 class HomeAPI {
   /// Fetch Home Tips
   static Future<HomeTipsModel> fetchHomeTips() async {
-    var resp = await ApiClient().get('/api/app/home/tips');
-    return resp.data != null ? HomeTipsModel.fromJson(resp.data) : HomeTipsModel();
+    var resp = await ApiClient().get('/home/tips');
+    return resp.data != null
+        ? HomeTipsModel.fromJson(resp.data)
+        : HomeTipsModel();
   }
 
   /// Fetch Home Log Info
   static Future<HomeLogInfoModel> fetchHomeLogInfo() async {
-    var resp = await ApiClient().get('/api/app/home/logInfo');
-    return resp.data != null ? HomeLogInfoModel.fromJson(resp.data) : HomeLogInfoModel();
+    var resp = await ApiClient().get('/home/logInfo');
+    return resp.data != null
+        ? HomeLogInfoModel.fromJson(resp.data)
+        : HomeLogInfoModel();
   }
 }

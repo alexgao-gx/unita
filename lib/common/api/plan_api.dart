@@ -15,33 +15,39 @@ import '../models/plan_model.dart';
 class PlanAPI {
   /// Mind Info
   static Future<PlanMindModel> fetchMindInfo() async {
-    var resp = await ApiClient().get('/api/app/plan/mind/info');
-    return resp.data != null ? PlanMindModel.fromJson(resp.data) : PlanMindModel();
+    var resp = await ApiClient().get('/plan/mind/info');
+    return resp.data != null
+        ? PlanMindModel.fromJson(resp.data)
+        : PlanMindModel();
   }
 
   /// Save Mind
   static Future saveMindInfo({String? code}) async {
-    var resp = await ApiClient().post('/api/app/plan/saveMind', queryParameters: {'code': code});
+    var resp = await ApiClient()
+        .post('/plan/saveMind', queryParameters: {'code': code});
     Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
 
   /// Body Info
   static Future<PlanMindModel> fetchBodyInfo() async {
-    var resp = await ApiClient().get('/api/app/plan/body/info');
-    return resp.data != null ? PlanMindModel.fromJson(resp.data) : PlanMindModel();
+    var resp = await ApiClient().get('/plan/body/info');
+    return resp.data != null
+        ? PlanMindModel.fromJson(resp.data)
+        : PlanMindModel();
   }
 
   /// Save Body
   static Future saveBodyInfo({String? code}) async {
-    var resp = await ApiClient().post('/api/app/plan/saveBody', queryParameters: {'code': code});
+    var resp = await ApiClient()
+        .post('/plan/saveBody', queryParameters: {'code': code});
     Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
 
   /// Plan Info
   static Future<PlanModel> fetchPlanInfo() async {
-    var resp = await ApiClient().get('/api/app/plan/info');
+    var resp = await ApiClient().get('/plan/info');
     return resp.data != null ? PlanModel.fromJson(resp.data) : PlanModel();
   }
 }

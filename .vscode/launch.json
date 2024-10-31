@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "unita",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_dev.dart"  // Specify entry point
+        },
+        {
+            "name": "unita (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "program": "lib/main_dev.dart"  // Specify entry point
+        },
+        {
+            "name": "unita (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_prod.dart"  // Specify entry point
+        }
+    ]
+}

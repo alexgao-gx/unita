@@ -37,14 +37,14 @@ class LogAPI {
   /// Fetch Foods
   static Future<List<FoodModel>> searchFoods(String keywords) async {
     var resp = await ApiClient()
-        .get('/api/app/log/foodSearch', queryParameters: {'name': keywords});
+        .get('/log/foodSearch', queryParameters: {'name': keywords});
     return List.from(resp.data).map((e) => FoodModel.fromJson(e)).toList();
   }
 
   /// Fetch Log Info
   static Future<LogModel> fetchLogInfo(
       {List<LogType>? logTypes, DateTime? logDate}) async {
-    var resp = await ApiClient().get('/api/app/log/info', queryParameters: {
+    var resp = await ApiClient().get('/log/info', queryParameters: {
       'logType': logTypes?.map((e) => e.name).toList().join(','),
       'logDate': DateUtil.formatDate(logDate ?? DateTime.now(),
           format: DateFormats.y_mo_d)
@@ -53,17 +53,16 @@ class LogAPI {
   }
 
   /// Save Log Info
-  static Future saveLogInfo(
-      LogReqModel logReqData) async {
-    var resp = await ApiClient().post('/api/app/log/save', data: logReqData.toJson());
+  static Future saveLogInfo(LogReqModel logReqData) async {
+    var resp = await ApiClient().post('/log/save', data: logReqData.toJson());
     Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
 
   /// Remove Bowel Movement Log Info
-  static Future removeBowelMovementLogInfo(
-  {required int logId}) async {
-    var resp = await ApiClient().post('/api/app/log/removeBowelMovement', queryParameters: {'id': logId});
+  static Future removeBowelMovementLogInfo({required int logId}) async {
+    var resp = await ApiClient()
+        .post('/log/removeBowelMovement', queryParameters: {'id': logId});
     Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
@@ -71,17 +70,23 @@ class LogAPI {
   /// Fetch Medications
   static Future<List<MedicationModel>> searchMedication(String keywords) async {
     var resp = await ApiClient()
-        .get('/api/app/log/medSearch', queryParameters: {'name': keywords});
-    return List.from(resp.data).map((e) => MedicationModel.fromJson(e)).toList();
+        .get('/log/medSearch', queryParameters: {'name': keywords});
+    return List.from(resp.data)
+        .map((e) => MedicationModel.fromJson(e))
+        .toList();
   }
 
   /// Upload Meal File
   static Future<List<FoodModel>> uploadMealFile(File file,
       {ProgressCallback? onSendProgress}) async {
-    final formData = FormData.fromMap(
-        {"file": await MultipartFile.fromFile(file.path, filename: basename(file.path))});
-    final resp = await ApiClient().post('/api/app/log/foodIdentify',
+    final formData = FormData.fromMap({
+      "file":
+          await MultipartFile.fromFile(file.path, filename: basename(file.path))
+    });
+    final resp = await ApiClient().post('/log/foodIdentify',
         data: formData, onSendProgress: onSendProgress);
-    return List.from(resp.data['food']).map((e) => FoodModel.fromJson(e)).toList();
+    return List.from(resp.data['food'])
+        .map((e) => FoodModel.fromJson(e))
+        .toList();
   }
 }

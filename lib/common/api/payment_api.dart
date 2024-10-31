@@ -19,13 +19,20 @@ import '../models/payment_model.dart';
 class PaymentAPI {
   /// Fetch Payments
   static Future<List<PaymentModel>> fetchPaymentList() async {
-    var resp = await ApiClient().post('/api/app/user/creditCard/pageList', data: {});
-    return List.from(resp.data['records']).map((e)=> PaymentModel.fromJson(e)).toList();
+    var resp = await ApiClient().post('/user/creditCard/pageList', data: {});
+    return List.from(resp.data['records'])
+        .map((e) => PaymentModel.fromJson(e))
+        .toList();
   }
 
   /// Add/Update Payment
-  static Future addOrUpdatePayment({String? cardNo, String? cvv, String? expireDate, String? name, int? paymentId}) async {
-    var resp = await ApiClient().post('/api/app/user/creditCard/save', data: {
+  static Future addOrUpdatePayment(
+      {String? cardNo,
+      String? cvv,
+      String? expireDate,
+      String? name,
+      int? paymentId}) async {
+    var resp = await ApiClient().post('/user/creditCard/save', data: {
       'cardNo': cardNo,
       'cvv': cvv,
       'expireDate': expireDate,

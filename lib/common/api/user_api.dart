@@ -17,16 +17,18 @@ import '../models/message_model.dart';
 class UserAPI {
   /// Fetch User Info
   static Future<UserModel> fetchUserInfo() async {
-    var resp = await ApiClient().get('/api/app/user/info');
+    var resp = await ApiClient().get('/user/info');
     return resp.data != null ? UserModel.fromJson(resp.data) : UserModel();
   }
 
   /// Upload File
   static Future<String> uploadFile(File file,
       {ProgressCallback? onSendProgress}) async {
-    final formData = FormData.fromMap(
-        {"file": await MultipartFile.fromFile(file.path, filename: basename(file.path))});
-    final response = await ApiClient().post('/api/app/file/uploadImg',
+    final formData = FormData.fromMap({
+      "file":
+          await MultipartFile.fromFile(file.path, filename: basename(file.path))
+    });
+    final response = await ApiClient().post('/file/uploadImg',
         data: formData, onSendProgress: onSendProgress);
     return response.data;
   }
@@ -38,15 +40,18 @@ class UserAPI {
         .where((k) => parameters[k] == null)
         .toList()
         .forEach(parameters.remove);
-    final resp =
-        await ApiClient().post('/api/app/user/update', data: parameters);
+    final resp = await ApiClient().post('/user/update', data: parameters);
     return resp.data;
   }
 
   /// Fetch Messages
   static Future<List<MessageModel>> fetchNotifications({int page = 1}) async {
-    var resp = await ApiClient().get('/api/app/message/list', queryParameters: {'page': page});
-    return resp.data['records'] != null ? List.from(resp.data['records']).map((e)=> MessageModel.fromJson(e)).toList() : <MessageModel>[];
+    var resp =
+        await ApiClient().get('/message/list', queryParameters: {'page': page});
+    return resp.data['records'] != null
+        ? List.from(resp.data['records'])
+            .map((e) => MessageModel.fromJson(e))
+            .toList()
+        : <MessageModel>[];
   }
-
 }

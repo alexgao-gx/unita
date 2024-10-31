@@ -21,18 +21,24 @@ import '../models/home_tips_model.dart';
 /// Assessment Module APIs
 class AssessmentAPI {
   /// Fetch Assessments
-  static Future<List<AssessmentModel>> fetchAssessmentList1(AssessmentType type) async {
-    var resp = await ApiClient().get('/api/app/assessment/list', queryParameters: {'type': type.name});
+  static Future<List<AssessmentModel>> fetchAssessmentList1(
+      AssessmentType type) async {
+    var resp = await ApiClient()
+        .get('/assessment/list', queryParameters: {'type': type.name});
     return resp.data != null
         ? List.from(resp.data).map((e) => AssessmentModel.fromJson(e)).toList()
         : <AssessmentModel>[];
   }
 
   /// Fetch Assessments
-  static Future<List<AssessmentPageModel>> fetchAssessmentList(AssessmentType type) async {
-    var resp = await ApiClient().get('/api/app/assessment/list', queryParameters: {'type': type.name});
+  static Future<List<AssessmentPageModel>> fetchAssessmentList(
+      AssessmentType type) async {
+    var resp = await ApiClient()
+        .get('/assessment/list', queryParameters: {'type': type.name});
     return resp.data != null
-        ? List.from(resp.data).map((e) => AssessmentPageModel.fromJson(e)).toList()
+        ? List.from(resp.data)
+            .map((e) => AssessmentPageModel.fromJson(e))
+            .toList()
         : <AssessmentPageModel>[];
   }
 
@@ -45,7 +51,7 @@ class AssessmentAPI {
       String? prefix,
       String? zipCode,
       int? addressId}) async {
-    var resp = await ApiClient().post('/api/app/user/address/save', data: {
+    var resp = await ApiClient().post('/user/address/save', data: {
       'name': name,
       'phone': phone,
       'address': address,

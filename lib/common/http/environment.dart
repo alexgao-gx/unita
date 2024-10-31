@@ -8,8 +8,8 @@ enum EnvironmentEnum { product, develop }
 class Environment {
   static EnvironmentEnum value = EnvironmentEnum.product;
 
-  static String get mainNetwork => 'http://101.133.129.83:81';
-  static String get testNetwork => 'http://101.133.129.83:81';
+  static String get mainNetwork => 'http://54.153.70.110:8088';
+  static String get testNetwork => 'http://54.153.70.110:8088';
 
   static String get baseApiUrl {
     switch (value) {
