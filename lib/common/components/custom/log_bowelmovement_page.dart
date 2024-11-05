@@ -17,6 +17,7 @@ import 'package:unitaapp/common/models/signup_flow_model.dart';
 
 import '../../api/log_api.dart';
 import '../../models/log_req_model.dart';
+import '../../utils/hive_box.dart';
 import '../basic/app_bar.dart';
 import 'log_bm_shape.dart';
 import 'log_date_time.dart';
@@ -28,7 +29,8 @@ class LogBowelMovementPage extends GetView<LogBowelMovementPageController> {
   Widget build(BuildContext context) {
     Get.put(LogBowelMovementPageController());
     return Scaffold(
-      appBar: logAppBar(title: 'Bowel Movement'.tr, onSave: controller.onSaveAll),
+      appBar:
+          logAppBar(title: 'Bowel Movement'.tr, onSave: controller.onSaveAll),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -140,7 +142,8 @@ class LogBowelMovementPage extends GetView<LogBowelMovementPageController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextWidget(
-                        text:'Poop History | log time'.trArgs(['${history.logTime}']),
+                        text: 'Poop History | log time'
+                            .trArgs(['${history.logTime}']),
                         style: GoogleFonts.openSans(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
@@ -227,8 +230,14 @@ class LogBowelMovementPageController extends GetxController {
   Future<void> fetchBMLogInfo() async {
     await _fetchBMShapes();
 
+    // Retrieve userinfo.id from HiveBox
+    String userId = HiveBox.user.getUser().id.toString();
+
     final bmInfo = await LogAPI.fetchLogInfo(
-        logTypes: [LogType.BOWEL_MOVEMENT], logDate: dateRx.value);
+      logTypes: [LogType.BOWEL_MOVEMENT],
+      logDate: dateRx.value,
+      userId: userId, // Pass userId here
+    );
     bmInfoRx.value = bmInfo.bowelMovementInfo ?? <BowelMovementInfo>[];
     update(['POOP_HISTORY_VIEW'], true);
   }
@@ -251,11 +260,19 @@ class LogBowelMovementPageController extends GetxController {
         orElse: () => EnumModel());
     final shape = bmShapesRx.singleWhere((e) => e.isSelected.value == true,
         orElse: () => EnumModel());
-    await LogAPI.saveLogInfo(LogReqModel(
+
+    // Retrieve userinfo.id from HiveBox
+    String userId = HiveBox.user.getUser().id.toString();
+
+    await LogAPI.saveLogInfo(
+      LogReqModel(
         bowelMovementInfo: bmReqModel.value
           ..color = color.value
           ..shape = int.tryParse(shape.value ?? '0'),
-        logType: LogType.BOWEL_MOVEMENT.name));
+        logType: LogType.BOWEL_MOVEMENT.name,
+        userId: userId, // Include userId if needed in request payload
+      ),
+    );
     bmReqModel.value.apperance = null;
     bmReqModel.value.feeling = null;
 
@@ -282,12 +299,13 @@ class BmHistoryPainter extends CustomPainter {
     final double curveHeight = 30.r;
     final Path path = Path();
 
-    // 左侧起点
+    // Starting point on the left
     path.moveTo(0, rect.bottom - curveHeight);
-    // 第一个圆弧
+    // First curve
     path.quadraticBezierTo(0, rect.bottom, curveHeight, rect.bottom);
-    // 第二个圆弧
+    // Line to the right side
     path.lineTo(rect.right - curveHeight, rect.bottom);
+    // Second curve
     path.quadraticBezierTo(
         rect.right, rect.bottom, rect.right, rect.bottom - curveHeight);
 

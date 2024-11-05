@@ -25,6 +25,7 @@ import 'log_beverage_item.dart';
 import 'log_food_counter.dart';
 import 'log_food_tab_view.dart';
 import 'log_how_to_complete_dialog.dart';
+import '../../utils/hive_box.dart';
 
 class LogFoodPage<T extends LogFoodPageController> extends GetView<T> {
   LogFoodPage({super.key});
@@ -48,7 +49,8 @@ class LogFoodPage<T extends LogFoodPageController> extends GetView<T> {
                 Obx(() => WaterTip(
                       title: 'Beverages'.tr,
                       subTitle: 'Today\'s total beverages intake'.tr,
-                      targetValue:'xx oz'.trArgs(['${controller.beverageIntakeIconsRx.length * 8}']),
+                      targetValue: 'xx oz'.trArgs(
+                          ['${controller.beverageIntakeIconsRx.length * 8}']),
                       icon: 'assets/svg/ico_water_sel.svg',
                       description: '*1 cup = 8 fl oz'.tr,
                     )),
@@ -570,7 +572,7 @@ class _FoodTabBarWidgetState extends State<FoodTabBarWidget> {
               _index == idx ? AppColors.color_65AF7C : AppColors.color_1A342B;
           FontWeight weight = _index == idx ? FontWeight.w700 : FontWeight.w500;
           return Container(
-            decoration:_index == idx ?  TabBarIndicator() : null,
+            decoration: _index == idx ? TabBarIndicator() : null,
             padding: EdgeInsets.only(bottom: 5.h),
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,

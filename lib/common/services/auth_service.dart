@@ -21,21 +21,26 @@ class AuthService extends GetxService {
 
   final Rx<AuthModel> _auth = AuthModel().obs;
 
-  setAuth(AuthModel auth) {
+  setAuth(AuthModel auth) async {
     HiveBox.auth.setAuth(auth.toJson());
     _auth.value = auth;
     if (isAuth) {
       /// 每次鉴权成功后，同步用户信息以及该用户动态数据
-      if(Get.isRegistered<UserService>()) {
+      if (Get.isRegistered<UserService>()) {
         Get.find<UserService>().fetchUserInfo();
       } else {
         Get.put(UserService()).fetchUserInfo();
       }
-      if(Get.isRegistered<AppConfigService>()) {
+      if (Get.isRegistered<AppConfigService>()) {
         Get.find<AppConfigService>().fetchConfigs();
       } else {
         Get.put(AppConfigService()).fetchConfigs();
       }
+      // Fetch user details and store them in UserBox
+      final userInfo = await UserAPI
+          .fetchUserInfo(); // Assuming this API call exists to get user info
+
+      HiveBox.user.setUser(userInfo); // Store user info in UserBox
     }
   }
 
@@ -53,9 +58,8 @@ class AuthService extends GetxService {
     loadAuth();
   }
 
-
   /// 从localStorage中读取auth info.
- Future<void> loadAuth() async {
+  Future<void> loadAuth() async {
     if (!_auth.value.isAuth && HiveBox.auth.containsAuth()) {
       final authEntity = AuthModel.fromJson(HiveBox.auth.getAuth());
       setAuth(authEntity);
@@ -66,6 +70,7 @@ class AuthService extends GetxService {
     await AuthAPI.logout();
     await cleanAuth();
   }
+
   Future cleanAuth() async {
     setAuth(AuthModel());
     HiveBox.auth.clearAuth();

@@ -10,20 +10,23 @@ class LogReqModel {
   PeriodInfo? periodInfo;
   WellnessHealthInfo? wellnessHealthInfo;
   String? logType;
+  String? userId;
 
   LogReqModel(
-      {this.foodInfo,
+      {this.userId, // Include userId in constructor
+      this.foodInfo,
       this.bowelMovementInfo,
       this.beveragesInfo,
       this.symptomsInfo,
       this.skinInfo,
-        this.medicationInfo,
-        this.periodInfo,
-        this.wellnessHealthInfo,
+      this.medicationInfo,
+      this.periodInfo,
+      this.wellnessHealthInfo,
       this.logType});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userId'] = this.userId; // Include userId in toJson
     if (this.foodInfo != null) {
       data['foodInfo'] = this.foodInfo!.toJson();
     }

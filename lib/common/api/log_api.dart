@@ -42,19 +42,27 @@ class LogAPI {
   }
 
   /// Fetch Log Info
-  static Future<LogModel> fetchLogInfo(
-      {List<LogType>? logTypes, DateTime? logDate}) async {
+  static Future<LogModel> fetchLogInfo({
+    List<LogType>? logTypes,
+    DateTime? logDate,
+    String? userId, // Added userId as a parameter
+  }) async {
     var resp = await ApiClient().get('/log/info', queryParameters: {
       'logType': logTypes?.map((e) => e.name).toList().join(','),
       'logDate': DateUtil.formatDate(logDate ?? DateTime.now(),
-          format: DateFormats.y_mo_d)
+          format: DateFormats.y_mo_d),
+      'userId': userId, // Include userId in query parameters
     });
     return LogModel.fromJson(resp.data);
   }
 
   /// Save Log Info
-  static Future saveLogInfo(LogReqModel logReqData) async {
-    var resp = await ApiClient().post('/log/save', data: logReqData.toJson());
+  static Future saveLogInfo(LogReqModel logReqData, {String? userId}) async {
+    // Include userId in the request data
+    Map<String, dynamic> data = logReqData.toJson();
+    data['userId'] = userId; // Add userId to the data map
+
+    var resp = await ApiClient().post('/log/save', data: data);
     Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
