@@ -411,7 +411,7 @@ class LogWellnessHealthPageController extends GetxController {
     workoutReachedIconsRx.value = reachedIcons;
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
     final works = allWorkoutsRx
         .where((work) => work.hours != null && double.parse(work.hours!) > 0)
         .toList();
@@ -430,6 +430,8 @@ class LogWellnessHealthPageController extends GetxController {
         logType: LogType.WELLNESS_HEALTH.name));
 
     await fetchWellnessHealthLogInfo();
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 }

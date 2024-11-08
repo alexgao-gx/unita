@@ -255,7 +255,7 @@ class LogBowelMovementPageController extends GetxController {
     update(['BM_COLORS'], true);
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
     final color = bmColorsRx.singleWhere((e) => e.isSelected.value == true,
         orElse: () => EnumModel());
     final shape = bmShapesRx.singleWhere((e) => e.isSelected.value == true,
@@ -265,20 +265,22 @@ class LogBowelMovementPageController extends GetxController {
     String userId = HiveBox.user.getUser().id.toString();
 
     await LogAPI.saveLogInfo(
-      LogReqModel(
-        bowelMovementInfo: bmReqModel.value
-          ..color = color.value
-          ..shape = int.tryParse(shape.value ?? '0'),
-        logType: LogType.BOWEL_MOVEMENT.name,
-        userId: userId, // Include userId if needed in request payload
-      ),
-    );
+        LogReqModel(
+          bowelMovementInfo: bmReqModel.value
+            ..color = color.value
+            ..shape = int.tryParse(shape.value ?? '0'),
+          logType: LogType.BOWEL_MOVEMENT.name,
+        ),
+        userId: userId);
     bmReqModel.value.apperance = null;
     bmReqModel.value.feeling = null;
 
     await fetchBMLogInfo();
 
-    Get.back();
+    // Only navigate back if navigateBack is true
+    if (navigateBack) {
+      Get.back();
+    }
   }
 
   @override

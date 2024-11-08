@@ -15,7 +15,6 @@ import 'package:unitaapp/common/components/custom/log_period_page.dart';
 import 'package:unitaapp/common/components/custom/log_skin_page.dart';
 import 'package:unitaapp/common/components/custom/log_symptoms_page.dart';
 import 'package:unitaapp/common/components/custom/log_wellness_health_page.dart';
-
 import 'package:unitaapp/common/index.dart';
 import 'package:unitaapp/common/widgets/index.dart';
 import 'package:unitaapp/pages/log/log_order_page.dart';
@@ -56,19 +55,49 @@ class LogPage extends GetView<LogPageController> {
                       constrainedAxis: Axis.horizontal,
                       child: InkWell(
                         onTap: () async {
+                          // Auto-save for the current page before switching
+                          if (controller.index.value != index &&
+                              controller.index.value !=
+                                  controller.pageListRx.length - 1) {
+                            final currentPage =
+                                controller.pageListRx[controller.index.value];
+                            if (currentPage is LogFoodPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogBowelMovementPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogSymptomsPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogWellnessHealthPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogSkinPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogMedicationPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            } else if (currentPage is LogPeriodPage) {
+                              await currentPage.controller
+                                  .onSaveAll(navigateBack: false);
+                            }
+                          }
+
+                          // Change to the new tab
                           controller.index.value = index;
-                          if (index !=
-                              controller.pageListRx.length - 1) {
+
+                          // Fetch data for the new page if necessary
+                          if (index != controller.pageListRx.length - 1) {
                             final page = controller.pageListRx[index];
                             if (page is LogFoodPage) {
                               page.controller.fetchLogInfo();
-                            } else if (page
-                                is LogBowelMovementPage) {
+                            } else if (page is LogBowelMovementPage) {
                               page.controller.fetchBMLogInfo();
                             } else if (page is LogSymptomsPage) {
                               page.controller.fetchSymptomsLogInfo();
-                            } else if (page
-                                is LogWellnessHealthPage) {
+                            } else if (page is LogWellnessHealthPage) {
                               page.controller.fetchWellnessHealthLogInfo();
                             } else if (page is LogSkinPage) {
                               page.controller.fetchSkinLogInfo();
@@ -122,19 +151,17 @@ class LogPageController extends GetxController {
   RxInt index = 0.obs;
   RxList<LogPageModel> pageModelsRx = <LogPageModel>[].obs;
 
-
   @override
   void onInit() {
     _loadOrder();
     super.onInit();
   }
 
-
   RxList<Widget> get pageListRx {
     List<LogPageModel> visiblePageModels =
         pageModelsRx.where((e) => e.visibility == true).toList();
     List<Widget> newList = List.from(
-        visiblePageModels.map((pageModel) => pageModel.page).toList());
+        visiblePageModels.map((pageModel) => pageModel.page!).toList());
     newList.add(LogOrderPage());
     return newList.obs;
   }
@@ -143,7 +170,7 @@ class LogPageController extends GetxController {
     List<LogPageModel> visiblePageModels =
         pageModelsRx.where((e) => e.visibility == true).toList();
     List<String> newList = List.from(
-        visiblePageModels.map((pageModel) => pageModel.pageIcon).toList());
+        visiblePageModels.map((pageModel) => pageModel.pageIcon!).toList());
     newList.add('ico_more.svg');
     return newList.obs;
   }
@@ -152,7 +179,7 @@ class LogPageController extends GetxController {
     List<LogPageModel> visiblePageModels =
         pageModelsRx.where((e) => e.visibility == true).toList();
     List<String> newList = List.from(
-        visiblePageModels.map((pageModel) => pageModel.pageName).toList());
+        visiblePageModels.map((pageModel) => pageModel.pageName!).toList());
     return newList.obs;
   }
 
@@ -230,11 +257,7 @@ class LogPageModel {
   Widget? page;
 
   LogPageModel(
-      {this.visibility,
-      this.id,
-      this.pageName,
-      this.pageIcon,
-      this.page});
+      {this.visibility, this.id, this.pageName, this.pageIcon, this.page});
 
   LogPageModel.fromJson(Map<String, dynamic> json) {
     visibility = json['visibility'];

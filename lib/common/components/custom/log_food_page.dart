@@ -370,7 +370,8 @@ class LogFoodPageController extends LogPageController
     beverageIntakeIconsRx.value = intakeIcons;
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
+    String userId = HiveBox.user.getUser().id.toString();
     await LogAPI.saveLogInfo(LogReqModel(
         foodInfo: FoodInfoReqModel(
           breakfastFoodInfo: bFoodsRx,
@@ -378,7 +379,8 @@ class LogFoodPageController extends LogPageController
           dinnerFoodInfo: dFoodsRx,
           snackFoodInfo: sFoodsRx,
         ),
-        logType: LogType.FOOD.name));
+        logType: LogType.FOOD.name,
+        userId: userId));
     await LogAPI.saveLogInfo(LogReqModel(
         beveragesInfo: allBeveragesRx, logType: LogType.BEVERAGES.name));
 
@@ -386,7 +388,9 @@ class LogFoodPageController extends LogPageController
       Get.find<HomePageController>().fetchHomeLogInfo();
       Get.find<UserService>().fetchUserInfo();
     }
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 
   @override

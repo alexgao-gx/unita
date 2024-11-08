@@ -144,10 +144,12 @@ class LogSkinPageController extends GetxController {
         .toList();
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
     await LogAPI.saveLogInfo(
         LogReqModel(skinInfo: skinInfoRx.value, logType: LogType.SKIN.name));
     await fetchSkinLogInfo();
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 }

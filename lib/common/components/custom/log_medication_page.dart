@@ -106,7 +106,7 @@ class LogMedicationPageController extends GetxController
     update(['MEDICATIONS_VIEW'], true);
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
     final medications = medicationsRx
         .where((med) => med.servingSize != null && med.servingSize! > 0)
         .toList();
@@ -114,7 +114,9 @@ class LogMedicationPageController extends GetxController
         medicationInfo: MedicationInfoReqModel(medicationInfo: medications),
         logType: LogType.MED.name));
     await fetchMedicationLogInfo();
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 
   void addMedication(
@@ -137,9 +139,8 @@ class LogMedicationPageController extends GetxController
       return <FoodModel>[];
     }
     final resp = await LogAPI.searchMedication(keywords);
-    final foods = resp
-        .map((e) => FoodModel(name: e.name, code: e.code))
-        .toList();
+    final foods =
+        resp.map((e) => FoodModel(name: e.name, code: e.code)).toList();
     final results = foods.where((e) => e.name == keywords);
     if (results.isEmpty) {
       foods.add(FoodModel(name: keywords));

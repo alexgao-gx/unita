@@ -113,10 +113,12 @@ class LogPeriodPageController extends GetxController {
         .toList();
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
     await LogAPI.saveLogInfo(LogReqModel(
         periodInfo: periodInfoRx.value, logType: LogType.PERIOD.name));
     await fetchPeriodLogInfo();
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 }

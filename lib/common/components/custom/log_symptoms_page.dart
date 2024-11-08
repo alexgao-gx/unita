@@ -21,6 +21,7 @@ import '../../models/signup_flow_model.dart';
 import '../../services/user_service.dart';
 import '../basic/app_bar.dart';
 import 'log_date_time.dart';
+import '../../utils/hive_box.dart';
 
 class LogSymptomsPage extends GetView<LogSymptomsPageController> {
   const LogSymptomsPage({super.key});
@@ -320,15 +321,20 @@ class LogSymptomsPageController extends GetxController {
     update(['SYMPTOMS_LOCATION']);
   }
 
-  Future<void> onSaveAll() async {
+  Future<void> onSaveAll({bool navigateBack = true}) async {
+    String userId = HiveBox.user.getUser().id.toString();
     await LogAPI.saveLogInfo(LogReqModel(
-        symptomsInfo: symptomsRx.value, logType: LogType.SYMPTOMS.name));
+        symptomsInfo: symptomsRx.value,
+        logType: LogType.SYMPTOMS.name,
+        userId: userId));
 
     await fetchSymptomsLogInfo();
     if (Get.isRegistered<HomePageController>()) {
       Get.find<HomePageController>().fetchHomeLogInfo();
       Get.find<UserService>().fetchUserInfo();
     }
-    Get.back();
+    if (navigateBack) {
+      Get.back();
+    }
   }
 }
