@@ -371,7 +371,7 @@ class LogFoodPageController extends LogPageController
   }
 
   Future<void> onSaveAll({bool navigateBack = true}) async {
-    String userId = HiveBox.user.getUser().id.toString();
+    String userId = HiveBox.user.getUser().userId.toString();
     await LogAPI.saveLogInfo(LogReqModel(
         foodInfo: FoodInfoReqModel(
           breakfastFoodInfo: bFoodsRx,

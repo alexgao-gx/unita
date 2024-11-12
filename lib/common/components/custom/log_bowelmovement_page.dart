@@ -231,7 +231,7 @@ class LogBowelMovementPageController extends GetxController {
     await _fetchBMShapes();
 
     // Retrieve userinfo.id from HiveBox
-    String userId = HiveBox.user.getUser().id.toString();
+    String userId = HiveBox.user.getUser().userId.toString();
 
     final bmInfo = await LogAPI.fetchLogInfo(
       logTypes: [LogType.BOWEL_MOVEMENT],
@@ -262,7 +262,7 @@ class LogBowelMovementPageController extends GetxController {
         orElse: () => EnumModel());
 
     // Retrieve userinfo.id from HiveBox
-    String userId = HiveBox.user.getUser().id.toString();
+    String userId = HiveBox.user.getUser().userId.toString();
 
     await LogAPI.saveLogInfo(
         LogReqModel(

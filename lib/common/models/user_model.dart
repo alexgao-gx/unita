@@ -16,7 +16,7 @@ class UserModel {
   String? gender;
   String? goals;
   String? headImg;
-  int? id;
+  int? userId;
   String? identify;
   String? isDeleted;
   String? medical;
@@ -34,31 +34,31 @@ class UserModel {
 
   UserModel(
       {this.allergies,
-        this.birth,
-        this.coin,
-        this.createTime,
-        this.creator,
-        this.diet,
-        this.email,
-        this.gastrointestinal,
-        this.gender,
-        this.goals,
-        this.headImg,
-        this.id,
-        this.identify,
-        this.isDeleted,
-        this.medical,
-        this.modifier,
-        this.modifiyTime,
-        this.otherMedical,
-        this.password,
-        this.pregnant,
-        this.tall,
-        this.tallUnit,
-        this.tenantId,
-        this.username,
-        this.weight,
-        this.weightUnit});
+      this.birth,
+      this.coin,
+      this.createTime,
+      this.creator,
+      this.diet,
+      this.email,
+      this.gastrointestinal,
+      this.gender,
+      this.goals,
+      this.headImg,
+      this.userId,
+      this.identify,
+      this.isDeleted,
+      this.medical,
+      this.modifier,
+      this.modifiyTime,
+      this.otherMedical,
+      this.password,
+      this.pregnant,
+      this.tall,
+      this.tallUnit,
+      this.tenantId,
+      this.username,
+      this.weight,
+      this.weightUnit});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     allergies = json['allergies'];
@@ -72,7 +72,7 @@ class UserModel {
     gender = json['gender'];
     goals = json['goals'];
     headImg = json['headImg'];
-    id = json['id'];
+    userId = json['userId'];
     identify = json['identify'];
     isDeleted = json['isDeleted'];
     medical = json['medical'];
@@ -102,7 +102,7 @@ class UserModel {
     data['gender'] = this.gender;
     data['goals'] = this.goals;
     data['headImg'] = this.headImg;
-    data['id'] = this.id;
+    data['userId'] = this.userId;
     data['identify'] = this.identify;
     data['isDeleted'] = this.isDeleted;
     data['medical'] = this.medical;

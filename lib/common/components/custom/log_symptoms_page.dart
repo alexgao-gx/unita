@@ -322,7 +322,7 @@ class LogSymptomsPageController extends GetxController {
   }
 
   Future<void> onSaveAll({bool navigateBack = true}) async {
-    String userId = HiveBox.user.getUser().id.toString();
+    String userId = HiveBox.user.getUser().userId.toString();
     await LogAPI.saveLogInfo(LogReqModel(
         symptomsInfo: symptomsRx.value,
         logType: LogType.SYMPTOMS.name,
