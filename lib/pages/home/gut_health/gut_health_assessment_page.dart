@@ -169,19 +169,19 @@ class GutHealthAssessmentPageController extends LoadingButtonController {
 
   void updateChildQuestionVisibility(AssessmentOptionModel selectedOption) {
     // Check if the selected option triggers a child question (e.g., Q001_1)
-    if (selectedOption.value == "OP001") {
-      // Example: Option with value OP001 triggers child question
-      showChildQuestionRx.value = true;
-      childQuestionTitleRx?.value = "How often does the bloating occur?";
-      childOptionsRx.value = [
-        AssessmentOptionModel(title: "Daily", value: "OP101"),
-        AssessmentOptionModel(title: "Weekly", value: "OP102"),
-        AssessmentOptionModel(title: "Occasionally", value: "OP103"),
-      ];
-    } else {
-      showChildQuestionRx.value = false;
-      childOptionsRx.clear();
-    }
+    // if (selectedOption.value == "OP001") {
+    //   // Example: Option with value OP001 triggers child question
+    //   showChildQuestionRx.value = true;
+    //   childQuestionTitleRx?.value = "How often does the bloating occur?";
+    //   childOptionsRx.value = [
+    //     AssessmentOptionModel(title: "Daily", value: "OP101"),
+    //     AssessmentOptionModel(title: "Weekly", value: "OP102"),
+    //     AssessmentOptionModel(title: "Occasionally", value: "OP103"),
+    //   ];
+    // } else {
+    //   showChildQuestionRx.value = false;
+    //   childOptionsRx.clear();
+    // }
   }
 
   @override

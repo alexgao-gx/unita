@@ -30,6 +30,8 @@ class _PasswordInputWidgetState extends State<PasswordInputWidget> {
   int _pwdCharacterMaxStatus = 0;
   int _pwdCharacterNumStatus = 0;
   int _pwdCharacterUpperStatus = 0;
+  int _pwdCharacterSpecialStatus = 0; // New status for special character check
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +50,11 @@ class _PasswordInputWidgetState extends State<PasswordInputWidget> {
         _pwdCharacterUpperStatus = 2;
       } else {
         _pwdCharacterUpperStatus = 1;
+      }
+      if (Validators.containsSpecialCharacter(widget.controller?.text)) { // Check for special character
+        _pwdCharacterSpecialStatus = 2;
+      } else {
+        _pwdCharacterSpecialStatus = 1;
       }
       setState(() {});
     });
@@ -86,6 +93,7 @@ class _PasswordInputWidgetState extends State<PasswordInputWidget> {
               _buildValidateText('8 characters minimum'.tr, _pwdCharacterMaxStatus),
               _buildValidateText('must contain one number'.tr, _pwdCharacterNumStatus),
               _buildValidateText('one uppercase'.tr, _pwdCharacterUpperStatus),
+              _buildValidateText('one special character'.tr, _pwdCharacterSpecialStatus), // New validation message
             ],
           ),
         )

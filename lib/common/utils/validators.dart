@@ -27,6 +27,14 @@ class Validators {
     // 返回是否匹配
     return emailRegex.hasMatch(email ?? '');
   }
+  static bool containsSpecialCharacter(String? input) {
+    // Regex pattern to match a wide range of special characters
+    final RegExp specialCharRegex = RegExp(r'''[!@#\$%\^&\*\(\)_\+\-=\[\]\{\};:"',<>\.\?\/\\|`~]''');
+    return specialCharRegex.hasMatch(input ?? '');
+  }
+
+
+
 
   static int calculateAge(DateTime birthDate) {
     DateTime today = DateTime.now();
