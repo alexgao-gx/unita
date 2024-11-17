@@ -39,6 +39,12 @@ class CreateAccountPage<T extends CreateAccountPageController>
                 hintText: 'Prefer name'.tr,
                 isShowMaxCount: true,
               ),
+              // Email Input (Moved Below Password)
+              BasicInputWidget(
+                controller: controller.emailController,
+                hintText: 'Enter your email...'.tr,
+              ),
+              SizedBox(height: 20.h),
 
               // Password Inputs
               PasswordInputWidget(
@@ -53,13 +59,9 @@ class CreateAccountPage<T extends CreateAccountPageController>
               ),
 
               // Add spacing
-              SizedBox(height: 20.h),
 
-              // Email Input (Moved Below Password)
-              BasicInputWidget(
-                controller: controller.emailController,
-                hintText: 'Enter your email...'.tr,
-              ),
+
+
 
               // Captcha Input (Moved Below Password)
               SizedBox(height: 20.h),

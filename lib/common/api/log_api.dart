@@ -63,7 +63,6 @@ class LogAPI {
     data['userId'] = userId; // Add userId to the data map
 
     var resp = await ApiClient().post('/log/save', data: data);
-    Loading.toast(resp.statusMessage ?? '');
     return resp.data;
   }
 
