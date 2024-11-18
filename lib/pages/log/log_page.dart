@@ -218,7 +218,6 @@ class LogPageController extends GetxController {
     final spCaches = pageModelsRx.map((e) => jsonEncode(e.toJson())).toList();
     await sp.setStringList('LOG_PAGES', spCaches);
     update(['LOG_PAGE_VIEW'], true);
-    Loading.toast('Operation successful'.tr);
     index.value = pageNamesRx.length;
   }
 

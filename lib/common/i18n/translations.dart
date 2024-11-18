@@ -30,8 +30,8 @@ class UnitaTranslations extends Translations {
           'Bowel Movement': 'Bowel Movement',
           'Color': 'Color',
           'Feeling during defecation': 'Feeling during defecation',
-          'Medium Size / 35~40g per serving':
-              'Medium Size / 35~40g per serving',
+          'Medium Size / 240g per serving':
+              'Medium Size / 240g per serving',
           'Food & Drink': 'Food & Drink',
           'Beverages': 'Beverages',
           'Today\'s total beverages intake': 'Today\'s total beverages intake',
@@ -333,7 +333,7 @@ class UnitaTranslations extends Translations {
           'Bowel Movement': '排便情况',
           'Color': '颜色',
           'Feeling during defecation': '排便时的感受',
-          'Medium Size / 35~40g per serving': '中等大小 / 35~40g 每份',
+          'Medium Size / 240g per serving': '中等大小 / 240g 每份',
           'Food & Drink': '饮食记录',
           'Beverages': '饮料',
           'Today\'s total beverages intake': '今日摄入总液体量',

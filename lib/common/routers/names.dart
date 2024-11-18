@@ -20,6 +20,8 @@ class RouteNames {
   static const signupFlowConditions = '/signupFlowConditions';
   static const signupFlowMedicals = '/signupFlowMedicals';
   static const signupFlowDone = '/signupFlowDone';
+  static const signupFlowSymptomReduction = '/signupFlowSymptomReduction';
+  static const signupFlowDietDuration = '/signupFlowDietDuration';
 
   // LOG PAGES
   static const log = '/log';

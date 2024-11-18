@@ -87,7 +87,7 @@ class _LogFoodCounterWidgetState extends State<LogFoodCounterWidget> {
                 _buildCounter(),
                 30.verticalSpace,
                 TextWidget(
-                  text: 'Medium Size / 35~40g per serving'.tr,
+                  text: 'Medium Size / 240g per serving'.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.openSans(
                     fontSize: 14.sp,

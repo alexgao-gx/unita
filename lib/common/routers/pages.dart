@@ -35,6 +35,8 @@ import '../../pages/signup/signup_flow_medicals_page.dart';
 import '../../pages/signup/signup_flow_done_page.dart';
 import '../../pages/signup/signup_flow_tall_page.dart';
 import '../../pages/signup/signup_flow_weight_page.dart';
+import '../../pages/signup/signup_flow_diet_duration_page.dart';
+import '../../pages/signup/signup_flow_diet_symptom_reduction_page.dart';
 import 'names.dart';
 
 // Commented out missing imports
@@ -277,6 +279,16 @@ class RoutePages {
     GetPage(
       name: RouteNames.notificationMessages,
       page: () => const NotificationMessagesPage(),
+    ),
+    GetPage(
+      name: RouteNames.signupFlowDietDuration,
+      page: () => SignupFlowDietDurationPage(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: RouteNames.signupFlowSymptomReduction,
+      page: () => SignupFlowSymptomReductionPage(),
+      transition: Transition.noTransition,
     ),
   ];
 }

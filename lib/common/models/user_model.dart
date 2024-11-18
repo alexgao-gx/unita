@@ -1,9 +1,3 @@
-/*
- * @Email: cavanvip@gmail.com
- * @Github: https://github.com/cavanlee
- * @Description: 
- */
-
 class UserModel {
   String? allergies;
   String? birth;
@@ -11,6 +5,7 @@ class UserModel {
   String? createTime;
   String? creator;
   String? diet;
+  String? dietDuration; // Added field
   String? email;
   String? gastrointestinal;
   String? gender;
@@ -20,6 +15,7 @@ class UserModel {
   String? identify;
   String? isDeleted;
   String? medical;
+  String? symptomReduction; // Added field
   String? modifier;
   String? modifiyTime;
   String? otherMedical;
@@ -32,33 +28,36 @@ class UserModel {
   String? weight;
   String? weightUnit;
 
-  UserModel(
-      {this.allergies,
-      this.birth,
-      this.coin,
-      this.createTime,
-      this.creator,
-      this.diet,
-      this.email,
-      this.gastrointestinal,
-      this.gender,
-      this.goals,
-      this.headImg,
-      this.userId,
-      this.identify,
-      this.isDeleted,
-      this.medical,
-      this.modifier,
-      this.modifiyTime,
-      this.otherMedical,
-      this.password,
-      this.pregnant,
-      this.tall,
-      this.tallUnit,
-      this.tenantId,
-      this.username,
-      this.weight,
-      this.weightUnit});
+  UserModel({
+    this.allergies,
+    this.birth,
+    this.coin,
+    this.createTime,
+    this.creator,
+    this.diet,
+    this.dietDuration, // Added parameter
+    this.email,
+    this.gastrointestinal,
+    this.gender,
+    this.goals,
+    this.headImg,
+    this.userId,
+    this.identify,
+    this.isDeleted,
+    this.medical,
+    this.symptomReduction, // Added parameter
+    this.modifier,
+    this.modifiyTime,
+    this.otherMedical,
+    this.password,
+    this.pregnant,
+    this.tall,
+    this.tallUnit,
+    this.tenantId,
+    this.username,
+    this.weight,
+    this.weightUnit,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     allergies = json['allergies'];
@@ -67,6 +66,7 @@ class UserModel {
     createTime = json['createTime'];
     creator = json['creator'];
     diet = json['diet'];
+    dietDuration = json['dietDuration']; // Parse from JSON
     email = json['email'];
     gastrointestinal = json['gastrointestinal'];
     gender = json['gender'];
@@ -76,6 +76,7 @@ class UserModel {
     identify = json['identify'];
     isDeleted = json['isDeleted'];
     medical = json['medical'];
+    symptomReduction = json['symptomReduction']; // Parse from JSON
     modifier = json['modifier'];
     modifiyTime = json['modifiyTime'];
     otherMedical = json['otherMedical'];
@@ -90,33 +91,35 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['allergies'] = this.allergies;
-    data['birth'] = this.birth;
-    data['coin'] = this.coin;
-    data['createTime'] = this.createTime;
-    data['creator'] = this.creator;
-    data['diet'] = this.diet;
-    data['email'] = this.email;
-    data['gastrointestinal'] = this.gastrointestinal;
-    data['gender'] = this.gender;
-    data['goals'] = this.goals;
-    data['headImg'] = this.headImg;
-    data['userId'] = this.userId;
-    data['identify'] = this.identify;
-    data['isDeleted'] = this.isDeleted;
-    data['medical'] = this.medical;
-    data['modifier'] = this.modifier;
-    data['modifiyTime'] = this.modifiyTime;
-    data['otherMedical'] = this.otherMedical;
-    data['password'] = this.password;
-    data['pregnant'] = this.pregnant;
-    data['tall'] = this.tall;
-    data['tallUnit'] = this.tallUnit;
-    data['tenantId'] = this.tenantId;
-    data['username'] = this.username;
-    data['weight'] = this.weight;
-    data['weightUnit'] = this.weightUnit;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['allergies'] = allergies;
+    data['birth'] = birth;
+    data['coin'] = coin;
+    data['createTime'] = createTime;
+    data['creator'] = creator;
+    data['diet'] = diet;
+    data['dietDuration'] = dietDuration; // Added to JSON
+    data['email'] = email;
+    data['gastrointestinal'] = gastrointestinal;
+    data['gender'] = gender;
+    data['goals'] = goals;
+    data['headImg'] = headImg;
+    data['userId'] = userId;
+    data['identify'] = identify;
+    data['isDeleted'] = isDeleted;
+    data['medical'] = medical;
+    data['symptomReduction'] = symptomReduction; // Added to JSON
+    data['modifier'] = modifier;
+    data['modifiyTime'] = modifiyTime;
+    data['otherMedical'] = otherMedical;
+    data['password'] = password;
+    data['pregnant'] = pregnant;
+    data['tall'] = tall;
+    data['tallUnit'] = tallUnit;
+    data['tenantId'] = tenantId;
+    data['username'] = username;
+    data['weight'] = weight;
+    data['weightUnit'] = weightUnit;
     return data;
   }
 }

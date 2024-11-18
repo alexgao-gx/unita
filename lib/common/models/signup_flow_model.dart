@@ -34,6 +34,8 @@ class SignupFlowModel {
   List<EnumModel>? sleepHourEnum;
   List<EnumModel>? sleepFeelEnum;
   List<EnumModel>? workoutEnum;
+  List<EnumModel>? dietDurationEnum; // Added
+  List<EnumModel>? symptomReductionEnum; // Added
 
   SignupFlowModel(
       {this.bornEnum,
@@ -65,7 +67,11 @@ class SignupFlowModel {
       this.stressLevelEnum,
       this.stressTypeEnum,
       this.sleepHourEnum,
-      this.sleepFeelEnum, this.workoutEnum});
+      this.sleepFeelEnum, 
+      this.workoutEnum,
+      this.dietDurationEnum, // Added
+      this.symptomReductionEnum, // Added})
+    });
 
   SignupFlowModel.fromJson(Map<String, dynamic> json) {
     if (json['BornEnum'] != null) {
@@ -254,6 +260,18 @@ class SignupFlowModel {
         workoutEnum!.add(new EnumModel.fromJson(v));
       });
     }
+    if (json['DietDurationEnum'] != null) {
+      dietDurationEnum = <EnumModel>[];
+      json['DietDurationEnum'].forEach((v) {
+        dietDurationEnum!.add(new EnumModel.fromJson(v));
+      });
+    }
+    if (json['SymptomReductionEnum'] != null) {
+      symptomReductionEnum = <EnumModel>[];
+      json['SymptomReductionEnum'].forEach((v) {
+        symptomReductionEnum!.add(new EnumModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -364,6 +382,18 @@ class SignupFlowModel {
       data['SleepFeelEnum'] =
           this.sleepFeelEnum!.map((v) => v.toJson()).toList();
     }
+    // if (this.workoutEnum != null) {
+    //   data['WorkoutEnum'] = this.workoutEnum!.map((v) => v.toJson()).toList();
+    // }
+    if (this.dietDurationEnum != null) {
+      data['DietDurationEnum'] =
+          this.dietDurationEnum!.map((v) => v.toJson()).toList();
+    }
+    if (this.symptomReductionEnum != null) {
+      data['SymptomReductionEnum'] =
+          this.symptomReductionEnum!.map((v) => v.toJson()).toList();
+    }
+
     return data;
   }
 }
