@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unitaapp/common/index.dart';
-
 import 'package:unitaapp/common/style/colors.dart';
 
 class ContainerText extends StatelessWidget {
@@ -12,8 +11,8 @@ class ContainerText extends StatelessWidget {
     super.key,
     required this.tapAction,
     required this.bgColor,
-     this.width,
-     this.height,
+    this.width,
+    this.height,
     required this.borderRadius,
     required this.text,
     required this.textSize,
@@ -26,7 +25,10 @@ class ContainerText extends StatelessWidget {
     this.borderWidth = 1,
     this.verPadding,
     this.horPadding = 24,
+    this.maxLines = 1, // Default maxLines to 1 for text overflow handling
+    this.overflow = TextOverflow.ellipsis, // Default overflow behavior
   });
+
   final Function() tapAction;
   final Color bgColor;
   final double? width;
@@ -40,10 +42,11 @@ class ContainerText extends StatelessWidget {
   final Color? borderColor;
   final Alignment? alignment;
   final TextAlign? textAlign;
-  double borderWidth = 1;
- final double? verPadding;
-  double horPadding = 24;
-
+  final double borderWidth;
+  final double? verPadding;
+  final double horPadding;
+  final int maxLines; // New property for controlling text lines
+  final TextOverflow overflow; // New property for handling text overflow
 
   @override
   Widget build(BuildContext context) {
@@ -51,33 +54,39 @@ class ContainerText extends StatelessWidget {
       padding: EdgeInsets.zero,
       minSize: height ?? 56.h,
       onPressed: tapAction,
-      alignment:alignment ?? Alignment.centerLeft,
+      alignment: alignment ?? Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: horPadding, vertical: verPadding ?? 0),
-        alignment:alignment ?? Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(
+          horizontal: horPadding,
+          vertical: verPadding ?? 0,
+        ),
+        alignment: alignment ?? Alignment.centerLeft,
         width: width,
         height: height,
-        constraints: BoxConstraints(minHeight:height ??  56.h),
-        // height: verPadding != null ? null :( height ?? 56),
+        constraints: BoxConstraints(minHeight: height ?? 56.h),
         decoration: BoxDecoration(
-          border: Border.all(color: borderColor ?? AppColors.color_C5C5C5, width: borderWidth),
-          color: bgColor, // 设置背景色
-          borderRadius: BorderRadius.circular(borderRadius), // 设置圆角
+          border: Border.all(
+            color: borderColor ?? AppColors.color_C5C5C5,
+            width: borderWidth,
+          ),
+          color: bgColor, // Background color
+          borderRadius: BorderRadius.circular(borderRadius), // Rounded corners
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextWidget(
-              textAlign:textAlign ?? TextAlign.left,
+              textAlign: textAlign ?? TextAlign.left,
               text: text,
               weight: textWeight,
               color: textColor,
               size: textSize,
-              maxLines: null,
+              maxLines: maxLines, // Max lines for text
+              overflow: overflow, // Handle text overflow
               softWrap: true,
             ),
-            subTitle ?? SizedBox.shrink(),
+            subTitle ?? SizedBox.shrink(), // Optional subtitle
           ],
         ),
       ),
