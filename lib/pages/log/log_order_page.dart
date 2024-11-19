@@ -16,7 +16,7 @@ class LogOrderPage extends GetView<LogPageController> {
     return Scaffold(
       appBar: logAppBar(
           title: 'Log Order'.tr,
-          logActionText: 'Done'.tr,
+          logActionText: 'Save All'.tr,
           onSave: controller.saveOrder),
       body: SingleChildScrollView(
         child: Column(

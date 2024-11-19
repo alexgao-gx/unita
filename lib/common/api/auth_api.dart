@@ -13,7 +13,7 @@ class AuthAPI {
   /// Login
   static Future<AuthModel> login(String username, String password) async {
     var resp = await ApiClient()
-        .post('/login', data: {'username': username, 'password': password});
+        .post('/login', data: {'email': username, 'password': password});
     return resp.data != null ? AuthModel.fromJson(resp.data) : AuthModel();
   }
 
