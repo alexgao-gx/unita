@@ -15,7 +15,8 @@ import 'package:unitaapp/common/sqlite/chat_msg_database.dart';
 import 'package:unitaapp/common/style/colors.dart';
 import 'package:unitaapp/common/widgets/icon.dart';
 import 'package:unitaapp/common/widgets/image.dart';
-
+import 'package:unitaapp/common/api/chat_bot_api.dart';
+import 'package:unitaapp/common/utils/hive_box.dart';
 class UnibotPage extends StatelessWidget {
   UnibotPage({super.key});
   final Dio dio = Dio();
@@ -343,16 +344,20 @@ class UnibotPage extends StatelessWidget {
     );
     msgs.add(sendingModel);
     try {
-      Map<String, String> myMap = {
-        'query': msg,
-      };
+
       String idToken = Get.find<AuthService>().idToken ?? '';
       dio.options.headers['Authorization'] = 'Bearer $idToken';
-      Response response =
-          await dio.post('https://0iwa3nldoj.execute-api.us-west-2.amazonaws.com/prod/chatbot/chat', data: myMap);
-      print('result==${response.data}');
-      Map data = jsonDecode(response.data['body']);
-      // BotToast.showText(text: data['message']);
+      String userId = HiveBox.user.getUser().userId.toString();
+      // Map<String, dynamic> myMap = {
+      //   'query': msg.toString(),
+      //   'userId': int.parse(userId) ,
+      // };
+      // Make the API call
+      final response = await ChatBotAPI.chatbotChat(msg.toString(),  int.parse(userId));
+      final status = response['status'];
+      final message = response['message'];
+      final receiveMsg = response['data'] ?? 'No response from the chatbot.';
+
       msgs.removeLast();
       // ChatModel receiveModel = ChatModel(
       //   sendMsg: null,
@@ -361,7 +366,6 @@ class UnibotPage extends StatelessWidget {
       //   receiveMsg: data['message'],
       //   isHiMsg: false,
       // );
-      final receiveMsg = data['response'] ?? '';
       ChatMsg model = ChatMsg(
         // id: id ?? this.id,
         isSending: 0,
