@@ -39,11 +39,12 @@ class CreateAccountPage<T extends CreateAccountPageController>
                 hintText: 'Prefer name'.tr,
                 isShowMaxCount: true,
               ),
-              // Email Input (Moved Below Password)
-              BasicInputWidget(
-                controller: controller.emailController,
-                hintText: 'Enter your email...'.tr,
-              ),
+              // Email Input
+              Obx(() => BasicInputWidget(
+                    controller: controller.emailController,
+                    hintText: 'Enter your email...'.tr,
+                    errorText: controller.emailErrorRx.value, // Display email error
+                  )),
               SizedBox(height: 20.h),
 
               // Password Inputs
@@ -88,21 +89,26 @@ class CreateAccountPageController extends LoadingButtonController
   final emailRx = "".obs;
   final passwordRx = "".obs;
   final confirmPasswordRx = "".obs;
+  final emailErrorRx = RxString(''); // Holds the email error message
 
   @override
   void onInit() {
     super.onInit();
-    // accountController.text = 'Cavan';
-    // emailController.text = 'cavanvip@163.com';
-    // pwdController.text = 'Aa@123123';
-    // confirmPwdController.text = 'Aa@123123';
 
     accountController.addListener(() {
       accountRx.value = accountController.text;
     });
 
-    emailController.addListener(() {
+    emailController.addListener(() async {
       emailRx.value = emailController.text;
+
+      // Call validateEmail after email input is updated
+      if (Validators.isValidEmail(emailRx.value)) {
+        final isValid = await AuthAPI.validateEmail(emailRx.value);
+        emailErrorRx.value = isValid ? '' : 'This email is already been used'.tr;
+      } else {
+        emailErrorRx.value = 'Please enter a valid email format'.tr;
+      }
     });
 
     pwdController.addListener(() {
@@ -118,6 +124,7 @@ class CreateAccountPageController extends LoadingButtonController
   bool loadingButtonEnabled() =>
       accountRx.value.isNotEmpty &&
       Validators.isValidEmail(emailRx.value) &&
+      emailErrorRx.value == '' && // Ensure email is valid
       passwordRx.value.isNotEmpty &&
       confirmPasswordRx.value.isNotEmpty &&
       passwordRx.value == confirmPasswordRx.value &&
@@ -157,12 +164,6 @@ class CreateAccountPageController extends LoadingButtonController
   @override
   CaptchaType get captchaType => CaptchaType.createAccount;
 
-  // @override
-  // bool sendCaptchaButtonEnabled() =>
-  //     emailRx.isNotEmpty &&
-  //     accountRx.isNotEmpty &&
-  //     passwordRx.isNotEmpty &&
-  //     confirmPasswordRx.isNotEmpty;
   @override
   bool sendCaptchaButtonEnabled() => true;
 
@@ -187,3 +188,4 @@ class CreateAccountPageController extends LoadingButtonController
     return super.performClickSendSmsCodeButton();
   }
 }
+

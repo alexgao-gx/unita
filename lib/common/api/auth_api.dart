@@ -34,6 +34,15 @@ class AuthAPI {
     });
     return resp.data;
   }
+  /// Validate Email
+  static Future<bool> validateEmail(String email) async {
+    // Make the GET request with the email as a query parameter
+    var resp = await ApiClient().get('/validEmail', queryParameters: {'email': email});
+    
+    // Check the `data` field in the response
+    return resp.data ?? false; // Return `false` if the `data` field is absent or `null`
+  }
+  
 
   /// Forget Password - Send Captcha
   static Future<String?> sendCaptchaWhenForgetPassword(String email) async {
