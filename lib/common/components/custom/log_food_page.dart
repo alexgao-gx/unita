@@ -395,10 +395,11 @@ class LogFoodPageController extends LogPageController
 
   @override
   Future<List<FoodModel>> searchResults(String keywords) async {
+    String userId = HiveBox.user.getUser().userId.toString();
     if (keywords.isEmpty) {
       return <FoodModel>[];
     }
-    final resp = await LogAPI.searchFoods(keywords);
+    final resp = await LogAPI.searchFoods(keywords,int.parse(userId));
     final results = resp.where((e) => e.name == keywords);
     if (results.isEmpty) {
       resp.add(FoodModel(name: keywords));

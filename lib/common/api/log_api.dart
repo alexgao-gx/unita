@@ -5,7 +5,7 @@
  */
 
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
@@ -35,11 +35,29 @@ enum LogType {
 /// Log Module APIs
 class LogAPI {
   /// Fetch Foods
-  static Future<List<FoodModel>> searchFoods(String keywords) async {
-    var resp = await ApiClient()
-        .get('/log/foodSearch', queryParameters: {'name': keywords});
-    return List.from(resp.data).map((e) => FoodModel.fromJson(e)).toList();
+  static Future<List<FoodModel>> searchFoods(String keyword, int userId) async {
+    var resp = await ApiClient().post(
+      '/food/search',
+      data: {
+        'keyword': keyword, // Add the keyword to the request payload
+        'userId': userId    // Add the userId to the request payload
+      },
+    );
+
+    // Decode the `data` field as it is a JSON string
+    List<dynamic> decodedData = jsonDecode(resp.data);
+    
+    // Map the new response fields to the existing FoodModel fields
+    return decodedData.map((e) {
+      return FoodModel(
+        code: e['code'].toString(), // Ensure code is always a string
+        name: e['short_name'], // Map short_name to name
+        serving: null, // Keep serving null as the new response doesn't include this field
+      );
+    }).toList();
   }
+
+
 
   /// Fetch Log Info
   static Future<LogModel> fetchLogInfo({
